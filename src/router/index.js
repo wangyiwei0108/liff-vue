@@ -37,9 +37,10 @@ async function initLiff() {
 
     const { userId } = await liff.getProfile()
     // localStorage.setItem('lineToken', userId)
+    console.log(userId)
 
     store.commit('setIsInitLiff', true)
-    console.log('init yes!!!')
+    console.log('init yes!!@!')
 
   } catch(err) {
     console.log(err)
