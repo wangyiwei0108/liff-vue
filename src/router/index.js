@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import liff from '@line/liff'
+import store from '../store/index.js'
 
 const routes = [
   {
@@ -21,5 +23,30 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+router.beforeEach(async() => {
+  await initLiff()
+
+  const { userId } = await liff.getProfile()
+  localStorage.setItem('lineToken', userId)
+})
+
+async function initLiff() {
+  try {
+    await liff.init({
+      liffId: '1657303150-4EAqJbgR',
+      withLoginOnExternalBrowser: true,
+    })
+
+    const { userId } = await liff.getProfile()
+    localStorage.setItem('lineToken', userId)
+
+    store.commit('setIsInitLiff', true)
+    console.log('init yes!')
+
+  } catch(err) {
+    console.log(err)
+  }
+}
 
 export default router
