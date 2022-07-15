@@ -26,9 +26,6 @@ const router = createRouter({
 
 router.beforeEach(async() => {
   await initLiff()
-
-  const { userId } = await liff.getProfile()
-  localStorage.setItem('lineToken', userId)
 })
 
 async function initLiff() {
@@ -39,10 +36,10 @@ async function initLiff() {
     })
 
     const { userId } = await liff.getProfile()
-    localStorage.setItem('lineToken', userId)
+    // localStorage.setItem('lineToken', userId)
 
     store.commit('setIsInitLiff', true)
-    console.log('init yes!')
+    console.log('init yes!!!')
 
   } catch(err) {
     console.log(err)
